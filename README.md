@@ -1,2 +1,3 @@
-# **BIO**informatics **APP**lied to **RNA**-Seq analysis for transcriptomics
-A set of Bioinformatics tools applied to RNA-Seq analysis for Transcriptomics studies
+# **BIO**informatics **APP**lied to **RNA**-Seq analysis for Transcriptomic studies
+
+This repository contains a set of Bioinformatic tools applied to RNA-Seq analysis for Transcriptomic studies.
