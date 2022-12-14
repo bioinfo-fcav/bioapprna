@@ -187,7 +187,7 @@ else
 			--genomeFastaFiles genome.fa \
 			--genomeDir ./ \
 			--sjdbGTFfile ${absrefgtf} \
-			--genomeSAindexNbases 12 \
+			--genomeSAindexNbases 10 \
 			--sjdbOverhang 149 \
 			 > STAR.genomeGenerate.log.out.txt \
 			2> STAR.genomeGenerate.log.err.txt
@@ -253,9 +253,9 @@ for r1 in `find -L ${outdir}/ -name '*.prinseq.cleaned_1.fastq'`; do
 
 			echo -e "\tTopHat2 alignment (${name}) paired-end reads X genome ..." 
 
-			tophat2 --min-anchor 8 \
-				--min-intron-length 30 \
-				--max-intron-length 10000 \
+			tophat2 --min-anchor 200 \
+				--min-intron-length 999999999 \
+				--max-intron-length 1 \
 				--max-multihits 20 \
 				--transcriptome-max-hits 10 \
 				--prefilter-multihits \
@@ -264,8 +264,6 @@ for r1 in `find -L ${outdir}/ -name '*.prinseq.cleaned_1.fastq'`; do
 				--transcriptome-index ${outdir}/tophat_index/transcriptome \
 				--mate-inner-dist 0 \
 				--mate-std-dev 60 \
-				--coverage-search \
-				--microexon-search \
 				--b2-very-sensitive \
 				--library-type fr-firststrand \
 				--output-dir ${outdir}/tophat_out_pe/${name} \
@@ -288,17 +286,15 @@ for r1 in `find -L ${outdir}/ -name '*.prinseq.cleaned_1.fastq'`; do
 
 				echo -e "\tTopHat2 alignment (${name}) singleton reads X genome ..." 
 
-				tophat2 --min-anchor 8 \
-					--min-intron-length 30 \
-					--max-intron-length 10000 \
+				tophat2 --min-anchor 200 \
+					--min-intron-length 999999999 \
+					--max-intron-length 1 \
 					--max-multihits 20 \
 					--transcriptome-max-hits 10 \
 					--prefilter-multihits \
 					--num-threads ${THREADS} \
 					--GTF ${refgtf} \
 					--transcriptome-index ${outdir}/tophat_index/transcriptome \
-					--coverage-search \
-					--microexon-search \
 					--b2-very-sensitive \
 					--library-type fr-firststrand \
 					--output-dir ${outdir}/tophat_out_se/${name} \
@@ -399,12 +395,9 @@ for r1 in `find -L ${outdir}/ -name '*.prinseq.cleaned_1.fastq'`; do
 				--outSAMtype BAM Unsorted \
 				--outFilterType BySJout \
 				--outSJfilterReads Unique \
-				--alignSJoverhangMin 8 \
-				--alignSJDBoverhangMin 1 \
 				--outFilterMismatchNmax 999 \
 				--outFilterMismatchNoverReadLmax 0.02 \
-				--alignIntronMin 30 \
-				--alignIntronMax 10000 \
+				--alignIntronMax 1 \
 				--alignMatesGapMax 10000 \
 			 > ${outdir}/star_out_pe/${name}.log.out.txt \
 			2> ${outdir}/star_out_pe/${name}.log.err.txt
@@ -433,12 +426,9 @@ for r1 in `find -L ${outdir}/ -name '*.prinseq.cleaned_1.fastq'`; do
 					--outSAMtype BAM Unsorted \
 					--outFilterType BySJout \
 					--outSJfilterReads Unique \
-					--alignSJoverhangMin 8 \
-					--alignSJDBoverhangMin 1 \
 					--outFilterMismatchNmax 999 \
 					--outFilterMismatchNoverReadLmax 0.02 \
-					--alignIntronMin 30 \
-					--alignIntronMax 10000 \
+					--alignIntronMax 1 \
 					--alignMatesGapMax 10000 \
 				 > ${outdir}/star_out_se/${name}.log.out.txt \
 				2> ${outdir}/star_out_se/${name}.log.err.txt
